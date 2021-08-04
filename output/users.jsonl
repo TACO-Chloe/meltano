@@ -1,0 +1,6 @@
+{"id": "1", "name": "John", "age": "23", "gender": "male", "clv": "163.7", "avg_logins": "0.560009", "logins": "123"}
+{"id": "2", "name": "George", "age": "42", "gender": "male", "clv": "287.3", "avg_logins": "1.232155", "logins": "147"}
+{"id": "3", "name": "Mary", "age": "19", "gender": "female", "clv": "150.3", "avg_logins": "#DIV/0!", "logins": "0"}
+{"id": "4", "name": "Kate", "age": "52", "gender": "female", "clv": "190.1", "avg_logins": "0.854654", "logins": "156"}
+{"id": "5", "name": "Bill", "age": "35", "gender": "male", "clv": "350.8", "avg_logins": "1.787454", "logins": "205"}
+{"id": "6", "name": "Fiona", "age": "63", "gender": "female", "clv": "278.5", "avg_logins": "#DIV/0!", "logins": "0"}

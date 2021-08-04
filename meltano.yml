@@ -1,0 +1,50 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: 38c9c927-65ce-4687-bfba-52aafb8c2869
+plugins:
+  extractors:
+  - name: tap-csv
+    variant: meltano
+    pip_url: git+https://gitlab.com/meltano/tap-csv.git
+    config:
+      csv_files_definition: def.json
+  - name: tap-rest-api
+    namespace: restapi
+    pip_url: git+https://github.com/anelendata/tap-rest-api
+    executable: tap-rest-api
+    start_datetime: 2020-08-06
+    capabilities:
+      start_datetime: 2020-08-06
+      catalog: catalog/earthquakes.json
+    setting:
+      start_datetime: 2020-08-06
+    config: 
+      {
+        "url":"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime={start_datetime}&endtime={end_datetime}&minmagnitude={min_magnitude}&limit={items_per_page}&offset={current_offset}&eventtype=earthquake&orderby=time-asc",
+        "timestamp_key": "properties.time",
+        "start_datetime": "2020-08-06",
+        "min_magnitude": 1,
+        "schema": "earthquakes",
+        "record_list_level": "features[*]",
+        "items_per_page": 100,
+        "offset_start": 1,
+        "auth_method": "no_auth",
+        "http_headers": {
+            "User-Agent": "Mozilla/5.1 (Macintosh; scitylana.singer.io) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36",
+            "Content-type": "application/json"
+        }
+      }
+  loaders:
+  - name: target-sqlite
+    variant: meltano
+    pip_url: git+https://gitlab.com/meltano/target-sqlite.git
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+schedules:
+- name: csv-to-sqlite
+  extractor: tap-csv
+  loader: target-sqlite
+  transform: skip
+  interval: '@once'
+  start_date: 2021-08-03 09:27:36.510411
